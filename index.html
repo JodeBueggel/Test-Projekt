@@ -941,12 +941,12 @@
             display: none;
             opacity: 0;
             transition: all 0.5s ease;
-            position: relative;
             overflow: hidden;
         }
 
         .discount-popup.active {
-            display: block;
+            display: flex;
+            flex-direction: column;
             opacity: 1;
             transform: translate(-50%, -50%) scale(1);
         }
