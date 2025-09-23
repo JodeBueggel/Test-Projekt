@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EcoCarry - Nachhaltige Jutebeutel für eine grüne Zukunft</title>
+    <title>Jode Büggel - Nachhaltige Jutebeutel für eine grüne Zukunft</title>
 
     <style>
         * {
@@ -556,6 +556,190 @@
             }
         }
 
+        /* Discount Popup Styles */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 9998;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .popup-overlay.active {
+            display: block;
+        }
+
+        .discount-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            background: linear-gradient(135deg, var(--warm-white), var(--accent-beige));
+            border-radius: 30px;
+            padding: 3rem;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+            z-index: 9999;
+            display: none;
+            opacity: 0;
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .discount-popup.active {
+            display: block;
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: var(--secondary-green);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .popup-close:hover {
+            background: var(--primary-green);
+            transform: rotate(90deg);
+        }
+
+        .popup-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .popup-header h3 {
+            font-size: 2.5rem;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .discount-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--secondary-green), var(--primary-green));
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            animation: pulse 2s ease infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .popup-content {
+            text-align: center;
+        }
+
+        .popup-content p {
+            color: var(--text-dark);
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+        }
+
+        .discount-code {
+            background: white;
+            border: 2px dashed var(--secondary-green);
+            border-radius: 15px;
+            padding: 1rem 2rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-green);
+            letter-spacing: 2px;
+            margin: 1.5rem 0;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .discount-code:hover {
+            background: var(--secondary-green);
+            color: white;
+            border-style: solid;
+        }
+
+        .copy-hint {
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            opacity: 0.6;
+            margin-top: 0.5rem;
+        }
+
+        .popup-cta {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--secondary-green), var(--primary-green));
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: var(--shadow-medium);
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            cursor: pointer;
+            border: none;
+        }
+
+        .popup-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(45, 95, 63, 0.25);
+        }
+
+        .popup-decoration {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: var(--secondary-green);
+            border-radius: 50%;
+            opacity: 0.1;
+            top: -75px;
+            left: -75px;
+        }
+
+        .popup-decoration-2 {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: var(--primary-green);
+            border-radius: 50%;
+            opacity: 0.1;
+            bottom: -50px;
+            right: -50px;
+        }
+
+        .eco-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .hero-content,
@@ -709,6 +893,33 @@
         </div>
     </footer>
 
+    <!-- Discount Popup -->
+    <div class="popup-overlay" id="popupOverlay"></div>
+    <div class="discount-popup" id="discountPopup">
+        <div class="popup-decoration"></div>
+        <div class="popup-decoration-2"></div>
+        <button class="popup-close" id="popupClose">&times;</button>
+
+        <div class="popup-header">
+            <div class="eco-icon">🌿</div>
+            <h3>Willkommensrabatt!</h3>
+            <div class="discount-badge">25% RABATT</div>
+        </div>
+
+        <div class="popup-content">
+            <p>Als Dankeschön für Ihr Interesse an nachhaltigen Produkten erhalten Sie einen exklusiven Rabatt auf Ihre erste Bestellung!</p>
+
+            <div class="discount-code" id="discountCode">
+                ECO25FIRST
+            </div>
+            <div class="copy-hint">Klicken zum Kopieren</div>
+
+            <p style="font-size: 0.95rem; margin-top: 1.5rem;">Gültig für die nächsten 48 Stunden</p>
+
+            <button class="popup-cta" id="shopNow">Jetzt einlösen</button>
+        </div>
+    </div>
+
     <script>
         // Parallax scrolling effect
         window.addEventListener('scroll', () => {
@@ -836,6 +1047,75 @@
         });
 
         console.log('EcoCarry Shop geladen - Bereit für eine nachhaltige Zukunft! 🌱');
+
+        // Discount Popup Logic
+        const popupOverlay = document.getElementById('popupOverlay');
+        const discountPopup = document.getElementById('discountPopup');
+        const popupClose = document.getElementById('popupClose');
+        const discountCode = document.getElementById('discountCode');
+        const shopNowBtn = document.getElementById('shopNow');
+
+        // Show popup after 10 seconds
+        setTimeout(() => {
+            showPopup();
+        }, 10000);
+
+        function showPopup() {
+            popupOverlay.classList.add('active');
+            setTimeout(() => {
+                discountPopup.classList.add('active');
+            }, 100);
+        }
+
+        function closePopup() {
+            discountPopup.classList.remove('active');
+            setTimeout(() => {
+                popupOverlay.classList.remove('active');
+            }, 300);
+        }
+
+        // Close popup events
+        popupClose.addEventListener('click', closePopup);
+        popupOverlay.addEventListener('click', closePopup);
+
+        // Copy discount code to clipboard
+        discountCode.addEventListener('click', () => {
+            navigator.clipboard.writeText('ECO25FIRST').then(() => {
+                const originalText = discountCode.innerHTML;
+                discountCode.innerHTML = 'Kopiert! ✓';
+                discountCode.style.background = 'var(--secondary-green)';
+                discountCode.style.color = 'white';
+                discountCode.style.borderStyle = 'solid';
+
+                setTimeout(() => {
+                    discountCode.innerHTML = originalText;
+                    discountCode.style.background = 'white';
+                    discountCode.style.color = 'var(--primary-green)';
+                    discountCode.style.borderStyle = 'dashed';
+                }, 2000);
+            });
+        });
+
+        // Shop now button
+        shopNowBtn.addEventListener('click', () => {
+            closePopup();
+            // Scroll to product section
+            document.querySelector('#product').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        });
+
+        // Prevent popup from showing again if user has seen it
+        if (localStorage.getItem('ecoCarryPopupSeen')) {
+            // User has seen the popup before, only show after 30 seconds this time
+            setTimeout(() => {
+                showPopup();
+            }, 30000);
+        } else {
+            // First time visitor
+            localStorage.setItem('ecoCarryPopupSeen', 'true');
+        }
     </script>
 </body>
 </html>
