@@ -1280,6 +1280,13 @@
                                 <div class="color-option" style="background: #ff6b6b;" data-color="#ff6b6b"></div>
                                 <div class="color-option" style="background: #4ecdc4;" data-color="#4ecdc4"></div>
                                 <div class="color-option" style="background: #f7b731;" data-color="#f7b731"></div>
+                                <div class="color-option" style="background: #9b59b6;" data-color="#9b59b6"></div>
+                                <div class="color-option" style="background: #e74c3c;" data-color="#e74c3c"></div>
+                                <div class="color-option" style="background: #3498db;" data-color="#3498db"></div>
+                                <div class="color-option" style="background: #f39c12;" data-color="#f39c12"></div>
+                                <div class="color-option" style="background: #2ecc71;" data-color="#2ecc71"></div>
+                                <div class="color-option" style="background: #e67e22;" data-color="#e67e22"></div>
+                                <div class="color-option" style="background: #1abc9c;" data-color="#1abc9c"></div>
                             </div>
                         </div>
                     </div>
@@ -1303,16 +1310,6 @@
                         </div>
                     </div>
 
-                    <div class="option-section">
-                        <h3>🎨 Beutelfarbe</h3>
-                        <div class="color-options">
-                            <div class="color-option selected" style="background: linear-gradient(135deg, #8b6f47, #7fb069);" data-bag-color="default"></div>
-                            <div class="color-option" style="background: #2d5f3f;" data-bag-color="#2d5f3f"></div>
-                            <div class="color-option" style="background: #8b6f47;" data-bag-color="#8b6f47"></div>
-                            <div class="color-option" style="background: #e8dcc4;" data-bag-color="#e8dcc4"></div>
-                            <div class="color-option" style="background: #2c2c2c;" data-bag-color="#2c2c2c"></div>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -1557,20 +1554,6 @@
             });
         });
 
-        // Bag color selection
-        document.querySelectorAll('[data-bag-color]').forEach(option => {
-            option.addEventListener('click', () => {
-                document.querySelectorAll('[data-bag-color]').forEach(opt => opt.classList.remove('selected'));
-                option.classList.add('selected');
-
-                const color = option.dataset.bagColor;
-                if (color === 'default') {
-                    bagPreview.style.background = 'linear-gradient(135deg, #8b6f47, #7fb069)';
-                } else {
-                    bagPreview.style.background = color;
-                }
-            });
-        });
 
         // Image upload
         uploadArea.addEventListener('click', () => {
@@ -1658,9 +1641,6 @@
             document.querySelector('[data-color="white"]').classList.add('selected');
             textPreview.style.color = 'white';
 
-            document.querySelectorAll('[data-bag-color]').forEach(opt => opt.classList.remove('selected'));
-            document.querySelector('[data-bag-color="default"]').classList.add('selected');
-            bagPreview.style.background = 'linear-gradient(135deg, #8b6f47, #7fb069)';
 
             textPrice = 0;
             imagePrice = 0;
@@ -1672,7 +1652,6 @@
             const config = {
                 text: customTextInput.value,
                 textColor: document.querySelector('[data-color].selected').dataset.color,
-                bagColor: document.querySelector('[data-bag-color].selected').dataset.bagColor,
                 hasImage: imagePrice > 0,
                 totalPrice: basePrice + textPrice + imagePrice
             };
@@ -1750,16 +1729,6 @@
             });
         });
 
-        // Prevent popup from showing again if user has seen it
-        if (localStorage.getItem('ecoCarryPopupSeen')) {
-            // User has seen the popup before, only show after 30 seconds this time
-            setTimeout(() => {
-                showPopup();
-            }, 30000);
-        } else {
-            // First time visitor
-            localStorage.setItem('ecoCarryPopupSeen', 'true');
-        }
     </script>
 </body>
 </html>
